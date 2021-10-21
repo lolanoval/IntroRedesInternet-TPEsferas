@@ -80,18 +80,20 @@ int main()
 			case INGRESAR:
 				printf("\nIngresar usuario: "); //pide el usuario a ingresar
 				Jugador auxil; //era usuario y lo cambie por Jugador
+				int pos=0;
 				getchar();
 				gets(auxil.nombre, 25);  //lee el usuario
 				for (i = 0; i < v->usado; i++)  //bucle que recorre el vector de usuarios, frena si lo encuentra y el iterador permite ubicarlo en el vector
 				{
 					if (strcmp(v->usuarios[i].nombre, auxil.nombre) == 0)  //si lo encuentra frena el bucle
+					pos=i;//voy guardando posicion del usuario en lista
 						break;
 				}
 				if (i == v->usado)
 					printf("El usuario no existe.\n");  //si el usuario no existe, la posición del iterador será la misma que la cantidad de usuarios en el vector
 				else
 				{
-					printf("\nU  %s, ingrese su contrasenia:", v->usuarios[i].nombre);  //lee la contraseña
+					printf("\nUsuario  %s, ingrese su contrasenia:", v->usuarios[i].nombre);  //lee la contraseña
 					gets(auxil.contrasenia, 25);  //pide la contraseña
 					if (strcmp(auxil.contrasenia, v->usuarios[i].contrasenia) == 0) //compara la contraseña ingresada con la del usuario en el vector
 					{
