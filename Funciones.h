@@ -27,7 +27,6 @@ int** CrearMatriz(int ccol, int cfila);
 int** LlenarMatriz(int** matriz, int ccol, int cfila);
 int QuedanEsferasEnFila(int** matriz, int filaelegida, int ccol);
 int NumeroRandomFila(int cfila);
-int TipoJugador(Jugador jugador);
 int NumeroRandomEsfera(int cantesferas);
 int CorroborarFilaElegida(int cantesferasenfila);
 int ElegirFila(int** matriz, int filaelegida, int maxfilas, int ccol); //compruba si la fila elegida está dentro del rango
