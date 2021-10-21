@@ -88,7 +88,7 @@ void Juego(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2
 	int filaelegida_r = 0, esferaselegidas_r = 0;
 int filaelegida = 0, esferaselegidas = 0;
 //el jugador es la computadora
-if (jugador1.tipo == 0 || jugador2.tipo == 0) {
+if (jugador1.tipo == compu || jugador2.tipo == compu) {
 	//se elige la fila random
 	filaelegida_r = (1 + rand() % (cfila - 2));
 	int comprobarfila_r = ElegirFila(matriz, filaelegida_r, cfila, ccol);
@@ -110,7 +110,7 @@ if (jugador1.tipo == 0 || jugador2.tipo == 0) {
 	matriz = QuitarEsferas(matriz, filaelegida_r, esferaselegidas_r, ccol);
 
 	}
-	if (jugador1.tipo == 1 || jugador2.tipo == 1) {
+	if (jugador1.tipo == persona  || jugador2.tipo == persona) {
 		//el jugador elige la fila
 		printf("\nElija fila a quitar esferas (hasta fila %d): ", cfila);
 		scanf_s("%d", &filaelegida);
@@ -147,23 +147,40 @@ if (jugador1.tipo == 0 || jugador2.tipo == 0) {
 }
 
 
-int Turno(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2)
+void Turno(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2)
 {
-	int ContadorTurnos = 0;
 	int CantEsferas = ComprobarUltEsfera(matriz, ccol, cfila);
 	int turno;
-	if (CantEsferas > 1 && turno == 1) {
-		Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 1
-		++ContadorTurnos;
-		if (ComprobarUltEsfera(matriz, ccol, cfila) == 1) {
-			turno = 0;
+	do
+	{
+		if (turno == 1) {
+			Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 1
+			if (ComprobarUltEsfera(matriz, ccol, cfila) == 1) {
+				jugador1.partidas++;
+				jugador1.victorias++;
+				jugador2.partidas++;
+				turno = 0;
+			}
+			turno = 2;
 		}
-		turno = 2;
-	}
+		if (turno == 2) {
+			Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 2
+			
+			if (ComprobarUltEsfera(matriz, ccol, cfila) == 1) {
+				if (jugador2.tipo != compu) {
+					jugador2.partidas++;
+					jugador2.victorias++;
+					jugador1.partidas++;
+				}
+				else {
+					jugador1.partidas++;
+				}
+				turno = 0;
+			}
+		}
 
-	else if (turno == 2)
+	} while (turno !=0);
 
-		return turno;
 }
 void AgregarUsuario(vectorusuarios*vector) //agrega un usuario al vector
 {
@@ -213,7 +230,7 @@ void guardararchivo(vectorusuarios* vector)  //sobreescribe el archivo
 {
 	FILE*fp = NULL;
 	fp = fopen("usuarios.dat", "w+b");  //lo abre como escritura
-	fwrite(vector>usuarios, sizeof(jugador), vector->usado, fp);  //escritura de datos
+	fwrite(vector->usuarios, sizeof(jugador), vector->usado, fp);  //escritura de datos
 	fclose(fp);  //cerrado del archivo
 }
 
@@ -228,7 +245,7 @@ vectorusuarios* crearVectorusuarios()  // Creación del vector que contiene al ve
 		vusuarios->usado = 0; //como es un archivo nuevo, lo inicializa con cero usuarios
 		vusuarios->capacidad = 2;  //empieza con capacidad para 2 usuarios
 		vusuarios->usuarios = NULL;
-		vusuarios->usuarios = (usuario*)malloc(2 * (sizeof(jugador)));  //vector de jugadores creado con capacidad para dos usuarios
+		vusuarios->usuarios = (jugador*)malloc(2 * (sizeof(jugador)));  //vector de jugadores creado con capacidad para dos usuarios
 		return vusuarios;  //retorna el vector
 	}
 	else
@@ -252,30 +269,9 @@ void Ver_estadisticas(vectorusuarios* vector, int pos)  //imprime las estadístic
 {//imprime las estadísticas del jugador
 	printf("\n--SUS ESTADISTICAS--\n\n");
 	printf("Partidas jugadas: %d\n", vector->usuarios[pos].partidas);//partidas jugadas
-	printf("Victorias: %d\n\n", v->usuarios[pos].victorias);//partidas ganadas
+	printf("Victorias: %d\n\n", vector->usuarios[pos].victorias);//partidas ganadas
 	printf("---------------------");
 	
-
-	//	if (CantEsferas > 1 && turno == 1){
-	//		Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 1
-	//		turno++;
-	//		if(ComprobarUltEsfera()==1){
-	//			turno=0;
-	//		}
-	//	}
-
-	//	else if (turno == 2){
-	//		
-	//	Juego(); //juega e
-	//		l jugamatriz, ccol, cfila, jugador1, jugador2dor 2
-
-	//		turno--;
-	//		if(ComprobarUltEsfera()==1){
-	//			turno=0;
-	//		}			Juego(); //juega el jugador 2	
-	//	CantEsferas = ComprobarUltEsfera(matriz, ccol, cfila);
-	//}
-	// return ContadorTurnos;
 }
 int ElegirCantidadEsferas(int cantesferas, int maxesferas) //max esferas en fila viene de quedanesferasenfila
 {
