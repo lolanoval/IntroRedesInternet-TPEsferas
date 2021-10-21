@@ -29,11 +29,12 @@ int NumeroRandomFila(int cfila);
 int TipoJugador(Jugador jugador);
 int NumeroRandomEsfera(int cantesferas);
 int CorroborarFilaElegida(int cantesferasenfila);
-int ComprobarFilaElegida(int filaelegida, int maxfilas); //compruba si la fila elegida está dentro del rango
+int ElegirFila(int** matriz, int filaelegida, int maxfilas, int ccol); //compruba si la fila elegida está dentro del rango
 int ElegirCantidadEsferas(int cantesferas, int maxesferas); //max esferas viene de quedanesferasenfila
 int ComprobarUltEsfera(int** matriz, int ccol, int cfila); //comprueba si el jugador le deja la última esfera al siguiente
 int Turno(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2); 
-void Juego(int** matriz, int ccol, int cfila, Jugador jugador1); 
+void Juego(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2); 
+int** QuitarEsferas(int** matriz, int filaelegida, int esferasaquitar, int ccol);
 
 /// ARCHIVOS Y MEMORIA DINAMICA
 void AgregarUsuario(vectorusuarios*vector);

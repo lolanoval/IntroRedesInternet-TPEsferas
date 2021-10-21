@@ -83,39 +83,64 @@ int ComprobarUltEsfera(int** matriz, int ccol, int cfila) //devuelve la cant de 
 }
 
 
-void Juego(int** matriz, int ccol, int cfila, Jugador jugador1)//saque el jugador 2 pq sin importar cual sea la opcion los dos van a tener el mismo tipo
+void Juego(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2)//saque el jugador 2 pq sin importar cual sea la opcion los dos van a tener el mismo tipo
 {
+	int filaelegida_r = 0, esferaselegidas_r = 0;
 int filaelegida = 0, esferaselegidas = 0;
-	if (jugador1.tipo == 0) {
+//el jugador es la computadora
+if (jugador1.tipo == 0 || jugador2.tipo == 0) {
+	//se elige la fila random
+	filaelegida_r = (1 + rand() % (cfila - 2));
+	int comprobarfila_r = ElegirFila(matriz, filaelegida_r, cfila, ccol);
+	if (comprobarfila_r == 0)
+	{
+		do
+		{
+			filaelegida_r = (1 + rand() % (cfila - 1));
+		} while (comprobarfila_r == 0);
+	}
+	printf("\nLa fila elegida es: %d", filaelegida_r);
 
+
+	//se elige la cantidad de esferas random
+	int maxaquitar_r = QuedanEsferasEnFila(matriz, filaelegida, ccol);
+	int esferaselegidas_r = (1 + rand() % (maxaquitar_r - 2));
+	printf("\nLa cantidad de esferas elegidas son: %d", esferaselegidas_r);
+	//se quitan las esferas de esa fila (aca como devuelve la matriz habría que ver de que se sobreescriba la matriz, no se si así esta bien)
+	matriz = QuitarEsferas(matriz, filaelegida_r, esferaselegidas_r, ccol);
 
 	}
-	if (jugador1.tipo == 1) {
+	if (jugador1.tipo == 1 || jugador2.tipo == 1) {
 		//el jugador elige la fila
-		printf("Elija fila a quitar esferas (hasta fila %d): ", cfila);
+		printf("\nElija fila a quitar esferas (hasta fila %d): ", cfila);
 		scanf_s("%d", &filaelegida);
-		int comprobarfila = ElegirFila(filaelegida, cfila);
+		int comprobarfila = ElegirFila(matriz, filaelegida, cfila, ccol);
 		if (comprobarfila == 0)
 		{
 			do {
-				printf("Error. Elija fila a quitar esferas (hasta fila %d): ", cfila);
+				printf("\nError. Elija fila a quitar esferas (hasta fila %d): ", cfila);
 				scanf_s("%d", &filaelegida);
-				comprobarfila = ElegirFila(filaelegida, cfila);
+				comprobarfila = ElegirFila(matriz, filaelegida, cfila, ccol);
 			} while (comprobarfila == 0);
 		}
 		//el jugador elige la cantidad de esferas
 		int maxaquitar=QuedanEsferasEnFila(matriz,filaelegida,ccol);
-		printf("Elija cantidad de esferas a quitar (max %d): ", maxaquitar);
+		printf("\nElija cantidad de esferas a quitar (max %d): ", maxaquitar);
+		int maxaquitar = QuedanEsferasEnFila(matriz, filaelegida, ccol);
 		scanf_s("%d", &esferaselegidas);
 		int comprobaresferas = ElegirCantidadEsferas(esferaselegidas, maxaquitar);
 		if(comprobaresferas == 0)
 		{
 			do {
-				printf("Error. Elija cantidad de esferas a quitar (max %d): ", maxaquitar);
+				printf("\nError. Elija cantidad de esferas a quitar (max %d): ", maxaquitar);
 				scanf_s("%d", &esferaselegidas);
 				comprobaresferas = ElegirCantidadEsferas(esferaselegidas, maxaquitar);
 			} while (comprobaresferas == 0);
 		}
+
+		//se quitan las esferas de esta fila.
+		matriz = QuitarEsferas(matriz, filaelegida, esferaselegidas, ccol);
+
 		
 
 	}
@@ -125,17 +150,21 @@ int filaelegida = 0, esferaselegidas = 0;
 int Turno(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2)
 {
 	int ContadorTurnos = 0;
-	i
-		if (CantEsferas > 1 && turno == 1){
-			Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 1
-			++ContadorTurnos;
-			if(ComprobarUltEsfera(matriz, ccol, cfila)==1){
-				turno=0;
-			}
-			turno=2;
+	int CantEsferas = ComprobarUltEsfera(matriz, ccol, cfila);
+	int turno;
+	if (CantEsferas > 1 && turno == 1) {
+		Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 1
+		++ContadorTurnos;
+		if (ComprobarUltEsfera(matriz, ccol, cfila) == 1) {
+			turno = 0;
 		}
-			
-		else if (turno == 2){
+		turno = 2;
+	}
+
+	else if (turno == 2)
+
+		return turno;
+}
 void AgregarUsuario(vectorusuarios*vector) //agrega un usuario al vector
 {
 	int i;
@@ -225,27 +254,28 @@ void Ver_estadisticas(vectorusuarios* vector, int pos)  //imprime las estadístic
 	printf("Partidas jugadas: %d\n", vector->usuarios[pos].partidas);//partidas jugadas
 	printf("Victorias: %d\n\n", v->usuarios[pos].victorias);//partidas ganadas
 	printf("---------------------");
-} rop arC oamrprobarElegida	{
-		if (CantEsferas > 1 && turno == 1){
-			Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 1
-			turno++;
-			if(ComprobarUltEsfera()==1){
-				turno=0;
-			}
-		}
+	
 
-		else if (turno == 2){
-			
-		Juego(); //juega e
-			l jugamatriz, ccol, cfila, jugador1, jugador2dor 2
+	//	if (CantEsferas > 1 && turno == 1){
+	//		Juego(matriz, ccol, cfila, jugador1, jugador2);//juega el jugador 1
+	//		turno++;
+	//		if(ComprobarUltEsfera()==1){
+	//			turno=0;
+	//		}
+	//	}
 
-			turno--;
-			if(ComprobarUltEsfera()==1){
-				turno=0;
-			}			Juego(); //juega el jugador 2	
-		CantEsferas = ComprobarUltEsfera(matriz, ccol, cfila);
-	}
-	return ContadorTurnos;
+	//	else if (turno == 2){
+	//		
+	//	Juego(); //juega e
+	//		l jugamatriz, ccol, cfila, jugador1, jugador2dor 2
+
+	//		turno--;
+	//		if(ComprobarUltEsfera()==1){
+	//			turno=0;
+	//		}			Juego(); //juega el jugador 2	
+	//	CantEsferas = ComprobarUltEsfera(matriz, ccol, cfila);
+	//}
+	// return ContadorTurnos;
 }
 int ElegirCantidadEsferas(int cantesferas, int maxesferas) //max esferas en fila viene de quedanesferasenfila
 {
@@ -255,9 +285,10 @@ int ElegirCantidadEsferas(int cantesferas, int maxesferas) //max esferas en fila
 		return cantesferas;
 	//si devuelve 0, es error y el usuario debe elegir otro número de esferas
 }
-int ElegirFila(int filaelegida, int maxfilas)
+int ElegirFila(int** matriz, int filaelegida, int maxfilas, int ccol)
 {
-	if (filaelegida > maxfilas)
+	int esferasenfila = QuedanEsferasEnFila(matriz, filaelegida, ccol); //modifique esto para que devuelva tmbn error si hay cero esferas en esa fila
+	if (filaelegida > maxfilas || esferasenfila == 0)
 		return 0;
 	else
 		return 1; //0 es error, 1 es todo ok
@@ -266,10 +297,17 @@ int TipoJugador(Jugador jugador) {
 	return jugador.tipo;
 }
 
-int QuitarEsferas(int**matriz,int filaelejida, int esferasaquitar)
+int** QuitarEsferas(int**matriz,int filaelegida, int esferasaquitar,int ccol)
 {
-	for(int i=0; i<esferasaquitar; i++)
+	int esferasquitadas = 0;
+	for(int i=0; i<ccol; i++)
 	{
-		matriz[filaelejida][i] = 0;
+		if (esferasquitadas != esferasaquitar && matriz[filaelegida][i] == 1) 
+		{
+			matriz[filaelegida][i] = 0;
+			esferasquitadas++;
+		}
+		
 	}
+	return matriz; //aca cambie un poco el codigo pq solo serviria para las primeras esferas y no para las que siguen si se sacan despues
 }
