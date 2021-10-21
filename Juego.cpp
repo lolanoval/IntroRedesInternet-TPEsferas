@@ -3,20 +3,11 @@
 #include <time.h>
 #include "conio.h"
 #include "MemoriaArchivo.h"
-typedef enum { SALIR, INGRESAR, CREAR} OPCION;#include <iostream>
+#include <iostream>
+typedef enum { SALIR, INGRESAR, CREAR} OPCION;
 #include <string>
 #include "Funciones.h"
 
-
-/*struct Jugador
-{
-	char nombre[20];
-	int tipo; //0:compu - 1:persona
-	int tipojuego; //0:solitario 1:duo
-	int partidasganadas;
-
-};
-typedef struct Jugador jugador;*/
 
 int main()
 {
@@ -100,7 +91,7 @@ int main()
 					printf("El usuario no existe.\n");  //si el usuario no existe, la posición del iterador será la misma que la cantidad de usuarios en el vector
 				else
 				{
-					printf("\nBienvenid@  %s, ingrese su contrasenia:", v->usuarios[i].nombre);  //lee la contraseña
+					printf("\nU  %s, ingrese su contrasenia:", v->usuarios[i].nombre);  //lee la contraseña
 					gets(auxil.contrasenia, 25);  //pide la contraseña
 					if (strcmp(auxil.contrasenia, v->usuarios[i].contrasenia) == 0) //compara la contraseña ingresada con la del usuario en el vector
 					{

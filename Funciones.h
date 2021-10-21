@@ -26,7 +26,6 @@ int** CrearMatriz(int ccol, int cfila);
 int** LlenarMatriz(int** matriz, int ccol, int cfila);
 int QuedanEsferasEnFila(int** matriz, int filaelegida, int ccol);
 int NumeroRandomFila(int cfila);
-int TipoJugador(Jugador jugador);
 int NumeroRandomEsfera(int cantesferas);
 int CorroborarFilaElegida(int cantesferasenfila);
 int ElegirFila(int** matriz, int filaelegida, int maxfilas, int ccol); //compruba si la fila elegida está dentro del rango
@@ -35,6 +34,7 @@ int ComprobarUltEsfera(int** matriz, int ccol, int cfila); //comprueba si el jug
 int Turno(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2); 
 void Juego(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2); 
 int** QuitarEsferas(int** matriz, int filaelegida, int esferasaquitar, int ccol);
+void ImprimirJuego(int** matriz, int filaelegida, int maxfilas, int ccol);
 
 /// ARCHIVOS Y MEMORIA DINAMICA
 void AgregarUsuario(vectorusuarios*vector);

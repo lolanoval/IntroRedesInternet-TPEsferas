@@ -83,9 +83,10 @@ int ComprobarUltEsfera(int** matriz, int ccol, int cfila) //devuelve la cant de 
 }
 
 
-void Juego(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2)//saque el jugador 2 pq sin importar cual sea la opcion los dos van a tener el mismo tipo
+void Juego(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2)
 {
 	int filaelegida_r = 0, esferaselegidas_r = 0;
+	
 int filaelegida = 0, esferaselegidas = 0;
 //el jugador es la computadora
 if (jugador1.tipo == 0 || jugador2.tipo == 0) {
@@ -100,7 +101,6 @@ if (jugador1.tipo == 0 || jugador2.tipo == 0) {
 		} while (comprobarfila_r == 0);
 	}
 	printf("\nLa fila elegida es: %d", filaelegida_r);
-
 
 	//se elige la cantidad de esferas random
 	int maxaquitar_r = QuedanEsferasEnFila(matriz, filaelegida, ccol);
@@ -293,9 +293,7 @@ int ElegirFila(int** matriz, int filaelegida, int maxfilas, int ccol)
 	else
 		return 1; //0 es error, 1 es todo ok
 }
-int TipoJugador(Jugador jugador) {
-	return jugador.tipo;
-}
+
 
 int** QuitarEsferas(int**matriz,int filaelegida, int esferasaquitar,int ccol)
 {
@@ -310,4 +308,15 @@ int** QuitarEsferas(int**matriz,int filaelegida, int esferasaquitar,int ccol)
 		
 	}
 	return matriz; //aca cambie un poco el codigo pq solo serviria para las primeras esferas y no para las que siguen si se sacan despues
+}
+void ImprimirJuego(int** matriz, int cfila, int ccol)
+{
+	for (int i = 0; i < cfila; i++)
+	{
+		printf("\n");
+		for (int j = 0; j < ccol; j++)
+		{
+			printf("%d", matriz[i][j]);
+		}
+	}
 }
