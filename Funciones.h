@@ -10,7 +10,6 @@ struct Jugador
 	char nombre[20];
 	char contrasenia[20];
 	tipo tipo; //0:compu - 1:persona
-	int tipojuego; //0:solitario 1:duo
 	int victorias; 
 	int partidas;
 
@@ -35,7 +34,7 @@ int ComprobarUltEsfera(int** matriz, int ccol, int cfila); //comprueba si el jug
 void Turno(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2); 
 void Juego(int** matriz, int ccol, int cfila, Jugador jugador1, Jugador jugador2); 
 int** QuitarEsferas(int** matriz, int filaelegida, int esferasaquitar, int ccol);
-void ImprimirJuego(int** matriz, int filaelegida, int maxfilas, int ccol);
+void ImprimirJuego(int** matriz, int cfila, int ccol);
 
 /// ARCHIVOS Y MEMORIA DINAMICA
 void AgregarUsuario(vectorusuarios*vector);

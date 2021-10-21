@@ -300,7 +300,52 @@ void Ver_estadisticas(vectorusuarios* vector, int pos)  //imprime las estadístic
 {//imprime las estadísticas del jugador
 	printf("\n--SUS ESTADISTICAS--\n\n");
 	printf("Partidas jugadas: %d\n", vector->usuarios[pos].partidas);//partidas jugadas
-	printf("Victorias: %d\n\n", v->usuarios[pos].victorias);//partidas ganadas
+	printf("Victorias: %d\n\n", vector->usuarios[pos].victorias);//partidas ganadas
 	printf("---------------------");
 	
 }
+
+int ElegirCantidadEsferas(int cantesferas, int maxesferas) //max esferas en fila viene de quedanesferasenfila
+{
+	if (cantesferas > maxesferas || cantesferas == 0)
+		return 0;
+	else
+		return cantesferas;
+	//si devuelve 0, es error y el usuario debe elegir otro número de esferas
+}
+int ElegirFila(int** matriz, int filaelegida, int maxfilas, int ccol)
+{
+	int esferasenfila = QuedanEsferasEnFila(matriz, filaelegida, ccol); //modifique esto para que devuelva tmbn error si hay cero esferas en esa fila
+	if (filaelegida > maxfilas || esferasenfila == 0)
+		return 0;
+	else
+		return 1; //0 es error, 1 es todo ok
+}
+
+
+int** QuitarEsferas(int**matriz,int filaelegida, int esferasaquitar,int ccol)
+{
+	int esferasquitadas = 0;
+	for(int i=0; i<ccol; i++)
+	{
+		if (esferasquitadas != esferasaquitar && matriz[filaelegida][i] == 1) 
+		{
+			matriz[filaelegida][i] = 0;
+			esferasquitadas++;
+		}
+		
+	}
+	return matriz; //aca cambie un poco el codigo pq solo serviria para las primeras esferas y no para las que siguen si se sacan despues
+}
+void ImprimirJuego(int** matriz, int cfila, int ccol)
+{
+	for (int i = 0; i < cfila; i++)
+	{
+		printf("\n");
+		for (int j = 0; j < ccol; j++)
+		{
+			printf("%d", matriz[i][j]);
+		}
+	}
+}
+

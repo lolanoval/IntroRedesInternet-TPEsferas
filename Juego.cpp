@@ -68,6 +68,7 @@ int main()
 		cargarbuffer(v); //llena al vector de usuarios con el archivo 
 		int  opc;  //opción del menu bienvenida
 		int i = 0;  //iterador
+		int pos=0; //posicion del juagdor
 		do {  //menu bienvenida
 			printf("--------------------- MENU ---------------------");
 			printf("\n1) Iniciar sesion");
@@ -80,7 +81,7 @@ int main()
 			case INGRESAR:
 				printf("\nIngresar usuario: "); //pide el usuario a ingresar
 				Jugador auxil; //era usuario y lo cambie por Jugador
-				int pos=0;
+				
 				getchar();
 				gets(auxil.nombre, 25);  //lee el usuario
 				for (i = 0; i < v->usado; i++)  //bucle que recorre el vector de usuarios, frena si lo encuentra y el iterador permite ubicarlo en el vector
