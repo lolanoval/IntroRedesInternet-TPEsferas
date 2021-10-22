@@ -21,11 +21,9 @@
   <ItemGroup>
     <ClCompile Include="Funciones.cpp" />
     <ClCompile Include="Juego.cpp" />
-    <ClCompile Include="MemoriaArchivo.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Funciones.h" />
-    <ClInclude Include="MemoriaArchivo.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
