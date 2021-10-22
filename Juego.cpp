@@ -2,12 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include "conio.h"
-#include "MemoriaArchivo.h"
 #include <iostream>
 #include <string.h>
-typedef enum { SALIR=0, INGRESAR, CREAR} OPCION;
-#include <string>
 #include "Funciones.h"
+typedef enum { SALIR = 0, INGRESAR, CREAR } OPCION;
 typedef enum {JUGAR = 1, ESTADISTICAS,SALIR}menu;
 
 int main()
