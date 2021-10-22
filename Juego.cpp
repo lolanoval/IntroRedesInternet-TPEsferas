@@ -4,10 +4,10 @@
 #include "conio.h"
 #include "MemoriaArchivo.h"
 #include <iostream>
-typedef enum { SALIR, INGRESAR, CREAR} OPCION;
+typedef enum { SALIR=0, INGRESAR, CREAR} OPCION;
 #include <string>
 #include "Funciones.h"
-
+typedef enum {JUGAR = 1, ESTADISTICAS,SALIR}menu;
 
 int main()
 {
@@ -94,25 +94,52 @@ int main()
 					printf("El usuario no existe.\n");  //si el usuario no existe, la posición del iterador será la misma que la cantidad de usuarios en el vector
 				else
 				{
-					printf("\nUsuario  %s, ingrese su contrasenia:", v->usuarios[i].nombre);  //lee la contraseña
+					printf("\nUsuario  %s, ingrese su contrasenia:", v->usuarios[pos].nombre);  //lee la contraseña
 					gets(auxil.contrasenia, 25);  //pide la contraseña
-					if (strcmp(auxil.contrasenia, v->usuarios[i].contrasenia) == 0) //compara la contraseña ingresada con la del usuario en el vector
+					if (strcmp(auxil.contrasenia, v->usuarios[pos].contrasenia) == 0) //compara la contraseña ingresada con la del usuario en el vector
 					{
-						int opc2;  //menu de juego
+						menu opc2;  //menu de juego
 						printf("\n1) Jugar");
 						printf("\n2) Ver estadisticas");
 						printf("\n3) Salir\n");
-						scanf("%i", &opc2); //lee la opción elegida
+						scanf("%d", &opc2); //lee la opción elegida
 
-						while (opc2 == 1 || opc2 == 2) {
-							if (opc2 == 1)        //si es uno, llama a la función juego y vuelve a imprimir el menu de juego
-								Juego(v, i);  //llama a la funcion juego //funcion juego, recibe el vector del usuario ingresado y su posición en el vector
-							else if (opc2 == 2)    //si la opción es 3, imprime las estadísticas del jugador
+						while (opc2 == JUGAR || opc2 == ESTADISTICAS) {
+							if (opc2 == JUGAR) //si es uno, llama a la función juego y vuelve a imprimir el menu de juego
+							{
+								int opc3; //modo de juego
+								int cfila,ccol; //filas y columnas de matriz
+								printf("\n Elija modo de juego: ");
+								printf("\n1)\n  1. Solitario.");
+								printf("\n2)\n 2. Multijugador.");
+								scanf_s("%d",&opc3);
+								
+								printf("Crear la matriz de esferas. ");
+								printf("\nCantidad de filas: ");
+								scanf_s("%d",&cfila);
+								printf("\nCantdad de columnas: ");
+								scanf_s("%d",&ccol);
+
+								int**matriz=iniciarpartida(ccol,cfila);
+								int totalesferas=0;
+								for(int j=0;j<cfila;j++)
+								{
+									totalesferas=+QuedanEsferasEnFila(matriz, j, ccol); //total de esferas en toda la matriz
+								}
+								if(opc3==1)
+								{
+									Juego();
+
+								}
+
+								Turno();  //llama a la funcion juego //funcion juego, recibe el vector del usuario ingresado y su posición en el vector
+							} 
+							else if (opc2 == ESTADISTICAS)    //si la opción es 3, imprime las estadísticas del jugador
 								Ver_estadisticas(v, i);//Muestra las estadísticas del jugador. Recibe el vector de usuarios y su posición en el vector
 							printf("\n1) Jugar");
 							printf("\n2) Ver estadisticas");
 							printf("\n3) Salir\n");
-							scanf("%i", &opc2); //lee la opción elegida
+							scanf("%d", &opc2); //lee la opción elegida
 						} //si no es uno o 3, vuelve al menu principal
 					}
 					else

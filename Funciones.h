@@ -21,12 +21,12 @@ struct Vectorusuarios
 	int usado; // Elementos usados del vector
 	int capacidad; // Capacidad del vector
 }; typedef struct Vectorusuarios vectorusuarios;
-
+int** IniciarPartida(int *ccol, int &*ila);
 int** CrearMatriz(int ccol, int cfila);
 int** LlenarMatriz(int** matriz, int ccol, int cfila);
 int QuedanEsferasEnFila(int** matriz, int filaelegida, int ccol);
 int NumeroRandomFila(int cfila);
-int NumeroRandomEsfera(int cantesferas);
+int NumeroRandomEsfera(int filaelegida, int** matriz, int ccol);
 int CorroborarFilaElegida(int cantesferasenfila);
 int ElegirFila(int** matriz, int filaelegida, int maxfilas, int ccol); //compruba si la fila elegida está dentro del rango
 int ElegirCantidadEsferas(int cantesferas, int maxesferas); //max esferas viene de quedanesferasenfila

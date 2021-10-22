@@ -2,11 +2,22 @@
 
 #define _CRT_SECURE_NO_WARNINGS 
 
-
+int** IniciarPartida(int *ccol, int *cfila){0;
+	int fila=0, columna=0;
+	printf("\nCantidad de filas: ");
+	scanf("%d", &cfila);
+	printf("\nCantidad de columnas: ");
+	scanf("%d", &ccol);
+	int** matriz = CrearMatriz(fila, columna);
+*cfila = fila; //pasaje por referencia
+*ccol = columna;
+return matriz;
+}
 
 //LISTO
 int**CrearMatriz(int cfila, int ccol)//Crea una matriz segun el gusto del usuario
 {
+	
 	int** matriz = NULL;
 	matriz = new int*[cfila];
 	for (int j = 0; j < ccol; j++) {
@@ -46,18 +57,17 @@ int QuedanEsferasEnFila(int** matriz, int filaelegida, int ccol)
 
 int NumeroRandomFila(int cfila)
 {
-	//en el main hacer un do/while con QuedanEsferasEnFila != 0
-	int filaelegida = rand() % cfila;
+	
+	int filaelegida = (1 + rand() % (cfila - 2));
 
 	return filaelegida;
 }
 
-int NumeroRandomEsfera(int cantesferas)
+int NumeroRandomEsfera(int filaelegida, int** matriz,int ccol)
 {
-	//cant de esferas se calcula en el main, deberia ser mayor o igual a 1
-	//si hay una ultima fila en juego, saca todas menos 1
-	int cesfera = 1 + rand() % cantesferas;
-	return cesfera;
+	int maxaquitar = QuedanEsferasEnFila(matriz, filaelegida, ccol);
+	int randomesfera = (1 + rand() % (maxaquitar - 2));
+	return randomesfera;
 }
 int CorroborarFilaElegida(int cantesferasenfila) //la cant de esferas en fila se llama con la función de dicho nombre con la fila elegida
 {
@@ -91,20 +101,20 @@ int filaelegida = 0, esferaselegidas = 0;
 //el jugador es la computadora
 if (jugador1.tipo == compu || jugador2.tipo == compu) {
 	//se elige la fila random
-	filaelegida_r = (1 + rand() % (cfila - 2));
+	filaelegida_r = NumeroRandomFila(cfila); 
 	int comprobarfila_r = ElegirFila(matriz, filaelegida_r, cfila, ccol);
 	if (comprobarfila_r == 0)
 	{
 		do
 		{
-			filaelegida_r = (1 + rand() % (cfila - 1));
+		filaelegida_r = NumeroRandomFila(cfila);
 		} while (comprobarfila_r == 0);
 	}
 	printf("\nLa fila elegida es: %d", filaelegida_r);
 
 	//se elige la cantidad de esferas random
 	int maxaquitar_r = QuedanEsferasEnFila(matriz, filaelegida, ccol);
-	int esferaselegidas_r = (1 + rand() % (maxaquitar_r - 2));
+	int esferaselegidas_r = NumeroRandomEsfera(filaelegida_r, matriz, ccol);
 	printf("\nLa cantidad de esferas elegidas son: %d", esferaselegidas_r);
 	//se quitan las esferas de esa fila (aca como devuelve la matriz habría que ver de que se sobreescriba la matriz, no se si así esta bien)
 	matriz = QuitarEsferas(matriz, filaelegida_r, esferaselegidas_r, ccol);
@@ -344,8 +354,15 @@ void ImprimirJuego(int** matriz, int cfila, int ccol)
 		printf("\n");
 		for (int j = 0; j < ccol; j++)
 		{
-			printf("%d", matriz[i][j]);
-		}
+			if (matriz[i][j] == 0)
+			{
+				printf("-");
+			}
+			else if (matriz[i][j] == 1)
+			{
+				printf("0");
+			}
+
 	}
 }
 
