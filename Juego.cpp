@@ -192,7 +192,7 @@ int main()
 			
 		}
 	}while (opc != SALIR);  //se repite mientras el usuario no presione la opción de salir
-			{guardararchivo(v);  //al finalizar se sobreescribe el archivo con la información actualizada
+			guardararchivo(v);  //al finalizar se sobreescribe el archivo con la información actualizada
 			free(v->usuarios);  //libera el vector dinámico de los usuarios
 			free(v);  //se libera la memoria
 			v = NULL;
