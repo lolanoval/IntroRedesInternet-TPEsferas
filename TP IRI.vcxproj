@@ -27,10 +27,6 @@
     <ClInclude Include="Funciones.h" />
     <ClInclude Include="MemoriaArchivo.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="NewFile.txt" />
-    <Text Include="NewFile1.txt" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

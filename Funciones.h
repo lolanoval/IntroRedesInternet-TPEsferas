@@ -21,7 +21,7 @@ struct Vectorusuarios
 	int usado; // Elementos usados del vector
 	int capacidad; // Capacidad del vector
 }; typedef struct Vectorusuarios vectorusuarios;
-int** IniciarPartida(int *ccol, int &*ila);
+int** IniciarPartida(int *ccol, int *fila);
 int** CrearMatriz(int ccol, int cfila);
 int** LlenarMatriz(int** matriz, int ccol, int cfila);
 int QuedanEsferasEnFila(int** matriz, int filaelegida, int ccol);

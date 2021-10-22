@@ -9,9 +9,10 @@ int** IniciarPartida(int *ccol, int *cfila){0;
 	printf("\nCantidad de columnas: ");
 	scanf("%d", &ccol);
 	int** matriz = CrearMatriz(fila, columna);
+matriz = LlenarMatriz(matriz, columna, fila);
 *cfila = fila; //pasaje por referencia
 *ccol = columna;
-return matriz;
+return matriz; //devuelve la matriz creada y llena de esferas
 }
 
 //LISTO

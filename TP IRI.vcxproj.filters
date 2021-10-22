@@ -33,8 +33,4 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="NewFile.txt" />
-    <Text Include="NewFile1.txt" />
-  </ItemGroup>
 </Project>
